@@ -12,7 +12,7 @@ on:
     types: [published]
   push:
     branches: 
-      - master
+      - main
     paths:
       - '8632.config'
       - '.github/workflows/8632.yml'
