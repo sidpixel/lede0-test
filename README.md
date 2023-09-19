@@ -1,10 +1,10 @@
 # lede0
 
 
-make menuconfig 进入定制界面
-进入编译选项配置界面,.按照需要配置.( ‘*’ 代表编入固件，‘M’ 表示编译成模块或者IPK包， ‘空’不编译 )
+- make menuconfig 进入定制界面
+- 进入编译选项配置界面,.按照需要配置.( ‘*’ 代表编入固件，‘M’ 表示编译成模块或者IPK包， ‘空’不编译 )
 
-选择LuCI –> Applications配置： 常用
+- 选择LuCI –> Applications配置： 常用
 
 —————————————————————————————–
 LuCI —> Applications —> luci-app-adbyby-plus #去广告
