@@ -8,25 +8,25 @@
 
 —————————————————————————————–
 
-LuCI —> Applications —> luci-app-adbyby-plus #去广告
-LuCI —> Applications —> luci-app-arpbind #IP/MAC绑定
-LuCI —> Applications —> luci-app-autoreboot #支持计划重启
-LuCI —> Applications —> luci-app-ddns #动态域名
-LuCI —> Applications —> luci-app-filetransfer #文件传输
-LuCI —> Applications —> luci-app-firewall #添加防火墙
-LuCI —> Applications —> luci-app-frpc #FRP内网穿透
-LuCI —> Applications —> luci-app-hd-idle #硬盘休眠
-LuCI —> Applications —> luci-app-ipsec-virtuald #IPSec virtual服务
-LuCI —> Applications —> luci-app-mwan3 #负载均衡
-LuCI —> Applications —> luci-app-nlbwmon #网络带宽监视器
-LuCI —> Applications —> luci-app-p p t p-server #p p t p virtual**服务
-LuCI —> Applications —> luci-app-qos #流量服务质量(QoS)
-LuCI —> Applications —> luci-app-ramfree #释放内存
-LuCI —> Applications —> luci-app-samba #网络共享(samba)
-LuCI —> Applications —> luci-app-sfe #Turbo ACC网络加速
-LuCI —> Applications —> luci-app-sqm #流量智能队列管理
-LuCI —> Applications —> luci-app-S-S R-plus #S-S R兲朝上网
-LuCI —> Applications —> luci-app-syncdial #多拨虚拟网卡(原macvlan)
+LuCI —> Applications —> luci-app-adbyby-plus #去广告  
+LuCI —> Applications —> luci-app-arpbind #IP/MAC绑定  
+LuCI —> Applications —> luci-app-autoreboot #支持计划重启  
+LuCI —> Applications —> luci-app-ddns #动态域名  
+LuCI —> Applications —> luci-app-filetransfer #文件传输  
+LuCI —> Applications —> luci-app-firewall #添加防火墙  
+LuCI —> Applications —> luci-app-frpc #FRP内网穿透  
+LuCI —> Applications —> luci-app-hd-idle #硬盘休眠  
+LuCI —> Applications —> luci-app-ipsec-virtuald #IPSec virtual服务  
+LuCI —> Applications —> luci-app-mwan3 #负载均衡  
+LuCI —> Applications —> luci-app-nlbwmon #网络带宽监视器  
+LuCI —> Applications —> luci-app-p p t p-server #p p t p virtual**服务  
+LuCI —> Applications —> luci-app-qos #流量服务质量(QoS)  
+LuCI —> Applications —> luci-app-ramfree #释放内存  
+LuCI —> Applications —> luci-app-samba #网络共享(samba)  
+LuCI —> Applications —> luci-app-sfe #Turbo ACC网络加速  
+LuCI —> Applications —> luci-app-sqm #流量智能队列管理  
+LuCI —> Applications —> luci-app-S-S R-plus #S-S R兲朝上网  
+LuCI —> Applications —> luci-app-syncdial #多拨虚拟网卡(原macvlan)  
 LuCI —> Applications —> luci-app-upnp #通用即插即用(UPnP)
 LuCI —> Applications —> luci-app-v2ray-pro #V2Ray透明代理
 LuCI —> Applications —> luci-app-vlmcsd #KMS服务器设置
