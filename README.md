@@ -7,6 +7,7 @@
 - 选择LuCI –> Applications配置： 常用
 
 —————————————————————————————–
+
 LuCI —> Applications —> luci-app-adbyby-plus #去广告
 LuCI —> Applications —> luci-app-arpbind #IP/MAC绑定
 LuCI —> Applications —> luci-app-autoreboot #支持计划重启
@@ -40,6 +41,7 @@ LuCI —> Applications —> luci-app-zerotier #ZeroTier内网穿透
 Utilities —> open-vm-tools #打开适用于VMware的VM Tools
 
 —————————————————————————————–
+
 LuCI —> Applications —> luci-app-adblock #ADB广告过滤
 LuCI —> Applications —> luci-app-adbyby #广告过滤大师
 LuCI —> Applications —> luci-app-advanced-reboot #Linksys高级重启
