@@ -15,6 +15,10 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 git clone https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
 # 拉取oaf流控插件
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+#拉取passwall,openclash
+echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+echo "src-git passwall https://github.com/vernesong/OpenClash.git;master" >> "feeds.conf.default"
+
 
 #定义时间变量
 echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
