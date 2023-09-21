@@ -116,4 +116,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: OpenWRT-$OS_ARCH-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
-        files: ./artifact/*.gz
+        files: ./artifact/openwrt-x86-generic-generic-squashfs-combined-efi.img.gz
