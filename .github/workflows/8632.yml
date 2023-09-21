@@ -94,14 +94,14 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/x86/64/*combined-efi.img* ./artifact/
-        mv openwrt/bin/targets/x86/64/*.manifest ./artifact/
+        mv openwrt/bin/targets/*/*/*combined-efi.img* ./artifact/
+        mv openwrt/bin/targets/*/*/*.manifest ./artifact/
         cd ./artifact/
         ls -Ahl
         gzip -d *.gz && exit 0
         gzip --best *.img
         ls -Ahl
-        
+
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       with:
