@@ -90,7 +90,6 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) V=s
 
-     #   make -j$(nproc) V=s
 
     - name: Check space usage
       if: (!cancelled())
@@ -114,3 +113,35 @@ jobs:
         tag_name: ${{ env.OS_ARCH }}-${{ env.FILE_DATE }}
         path: openwrt/bin/targets/x86/generic/
   
+
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+        
+
+    - name: Prepare artifact
+      run: |
+        mkdir -p openwrt/artifact/package
+        mkdir -p openwrt/artifact/buildinfo
+        rm -rf $(find openwrt/bin/targets/ -type d -name "packages")
+        cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") openwrt/artifact/package/
+        cp -rf $(find openwrt/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") openwrt/artifact/buildinfo/
+
+    - name: Upload package
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenWrt_package
+        path: openwrt/artifact/package/
+
+    - name: Upload firmware
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenWrt_firmware
+        path: openwrt/artifact/buildinfo/
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.OS_ARCH }}-${{ env.FILE_DATE }}
+        path: openwrt/artifact/buildinfo/
