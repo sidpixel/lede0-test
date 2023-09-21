@@ -101,7 +101,12 @@ jobs:
         gzip -d *.gz && exit 0
         gzip --best *.img
         ls -Ahl
-
+        
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      with:
+        name: openwrt-firmware
+        path:  ./artifact/
 
     - name: Create release
       uses: softprops/action-gh-release@v1
