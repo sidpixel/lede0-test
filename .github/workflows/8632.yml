@@ -99,7 +99,7 @@ jobs:
         cd ./artifact/
         ls -Ahl
         gzip -d *.gz && exit 0
-        gzip --best *.img
+        gzip --best *
         ls -Ahl
 
     - name: Upload firmware directory
