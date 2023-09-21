@@ -28,6 +28,7 @@ env:
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
   READY_SH: ready.sh
+  RELEASE_VERSION: 22.03
 
 jobs:
   build:
@@ -88,34 +89,22 @@ jobs:
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
-        
 
-    - name: Prepare artifact
+    - name: Organize files
       run: |
-        mkdir -p openwrt/artifact/package
-        mkdir -p openwrt/artifact/buildinfo
-        rm -rf $(find openwrt/bin/targets/ -type d -name "packages")
-        cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") openwrt/artifact/package/
-        cp -rf $(find openwrt/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") openwrt/artifact/buildinfo/
+        rm -rf ./artifact/
+        mkdir -p ./artifact/
+        mv openwrt/bin/targets/x86/64/*combined-efi.img* ./artifact/
+        mv openwrt/bin/targets/x86/64/*.manifest ./artifact/
+        cd ./artifact/
+        ls -Ahl
+        gzip -d *.gz && exit 0
+        gzip --best *.img
+        ls -Ahl
 
-    - name: Upload package
-      uses: actions/upload-artifact@v3
-      with:
-        name: OpenWrt_package
-        path: openwrt/artifact/package/
 
-    - name: Upload firmware
-      uses: actions/upload-artifact@v3
-      with:
-        name: OpenWrt_firmware
-        path: openwrt/artifact/buildinfo/
-
-    - name: Release
+    - name: Create release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ env.OS_ARCH }}-${{ env.FILE_DATE }}
-        files: |
-          openwrt/artifact/buildinfo/*.img.gz
-          openwrt/artifact/buildinfo/*.manifest
-
-
+        tag_name: OpenWRT-$OS_ARCH-$(date +%Y%m%d%H%M)-${{ env.RELEASE_VERSION }}
+        files: ./artifact/*.gz
