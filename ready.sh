@@ -22,7 +22,7 @@ echo "src-git openclash https://github.com/vernesong/OpenClash.git;master" >> "f
 
 
 #定义时间变量
-#echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
+echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
 
 
 # 删除老argon
