@@ -66,6 +66,7 @@ jobs:
         ls -Ahl openwrt/
         chmod +x $READY_SH
         bash -x $GITHUB_WORKSPACE/$READY_SH
+        cat openwrt/feeds.conf.default
 
     - name: clean feeds
       working-directory: ./openwrt
