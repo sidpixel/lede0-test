@@ -103,7 +103,7 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/*/*/*combined-efi.img* ./artifact/
+        mv openwrt/bin/targets/*/*/*.img* ./artifact/
         mv openwrt/bin/targets/*/*/*.manifest ./artifact/
         cd ./artifact/
         ls -Ahl
