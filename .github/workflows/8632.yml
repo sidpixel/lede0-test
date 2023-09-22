@@ -42,8 +42,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo swapoff /mnt/swapfile
-        sudo -E rm -rf /imagegeneration /opt /mnt/swapfile /usr/local/aws* /usr/local/julia* /usr/share/swift* /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android  /usr/share/sbt* /usr/local/share/chromium* /usr/local/share/powershell* 
+        sudo -E rm -rf /imagegeneration /opt  /usr/local/aws* /usr/local/julia* /usr/share/swift* /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android  /usr/share/sbt* /usr/local/share/chromium* /usr/local/share/powershell* 
         sudo -E docker rmi `docker images -q`
         sudo -E apt-mark hold grub-efi-amd64-signed
         sudo -E apt update
@@ -56,8 +55,9 @@ jobs:
 
     - name: Clone source code
       run: |
+
         df -hT $PWD
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone  -b $REPO_BRANCH $REPO_URL openwrt
 
     - name: Load custom feeds and Load custom configuration
       run: |
