@@ -12,7 +12,7 @@ on:
     types: [published]
   push:
     branches: 
-      - master
+      - main
     paths:
       - '.github/workflows/test.yml'
 
@@ -57,33 +57,28 @@ jobs:
         chmod +x $READY_SH
         bash -x $GITHUB_WORKSPACE/$READY_SH
 
+    - name: Clone source code
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+
+    - name: Load custom feeds and Load custom configuration
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE  openwrt/.config
+        ls -Ahl openwrt/
+        chmod +x $READY_SH
+        bash -x $GITHUB_WORKSPACE/$READY_SH
+
+    - name: Update feeds
+      working-directory: ./openwrt
+      run: |
+        ls -Ahl
+        ./scripts/feeds clean 
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
 
     
 
-    - name: Check space usage
-      if: (!cancelled())
-      run: df -hT
-
-    - name: Organize files
-      run: |
-        rm -rf ./artifact/
-        mkdir -p ./artifact/
-        cd ./artifact/
-        touch testcombined-efi.img test.manifest
-
-        ls -Ahl
-        gzip -d *.gz && exit 0
-        gzip --best *
-        ls -Ahl
-
-    - name: Upload firmware directory
-      uses: actions/upload-artifact@master
-      with:
-        name: openwrt-firmware
-        path:  ./artifact/
-
-    - name: Create release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.RELEASE_VERSION }}-${{ env.FILE_DATE }}
-        files: artifact/*
+ 
