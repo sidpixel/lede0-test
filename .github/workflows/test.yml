@@ -1,0 +1,92 @@
+#=================================================
+# https://github.com/sidpixel/lede
+# Description: Build OpenWrt using GitHub Actions
+# License: MIT
+# Author: sidpixel
+#=================================================
+
+name: 8632.yml
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: 
+      - main
+    paths:
+      - '.github/workflows/test.yml'
+
+  schedule:
+    - cron: 21 1 1 */1 *
+env:
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-22.03
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: 8632.config
+  OS_ARCH: X86_32
+  READY_SH: ready.sh
+  RELEASE_VERSION: 22.03
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment and space clean
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+ 
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+    - name: Clone source code
+      run: |
+        df -hT $PWD
+        mkdir openwrt
+        #git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+
+    - name: Load custom feeds and Load custom configuration
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        cat openwrt/feeds.conf.default
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE  openwrt/.config
+        ls -Ahl openwrt/
+        chmod +x $READY_SH
+        bash -x $GITHUB_WORKSPACE/$READY_SH
+
+
+    
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+
+    - name: Organize files
+      run: |
+        rm -rf ./artifact/
+        mkdir -p ./artifact/
+        touch testcombined-efi.img test.manifest
+        mv openwrt/bin/targets/*/*/*combined-efi.img* ./artifact/
+        mv openwrt/bin/targets/*/*/*.manifest ./artifact/
+        cd ./artifact/
+        ls -Ahl
+        gzip -d *.gz && exit 0
+        gzip --best *
+        ls -Ahl
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      with:
+        name: openwrt-firmware
+        path:  ./artifact/
+
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
+        files: |
+          ./artifact/openwrt-x86-generic-generic-squashfs-combined-efi.img.gz
+          ./artifact/openwrt-x86-generic-generic.manifest.gz
