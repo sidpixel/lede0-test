@@ -67,28 +67,31 @@ jobs:
         chmod +x $READY_SH
         bash -x $GITHUB_WORKSPACE/$READY_SH
 
-    - name: Update feeds
+    - name: clean feeds
       working-directory: ./openwrt
       run: |
-        ls -Ahl
         ./scripts/feeds clean 
+    - name: update feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds update -a
+    - name: install  feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds install -a
 
 
-    - name: Download package
+    - name: create default config  package
       working-directory: ./openwrt
       run: |
-        make defconfig
+        make defconfig -j$(nproc)
+    - name: download  package
+      working-directory: ./openwrt
+      run: |
         make download -j$(nproc)
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
-        
-    
     - name: Compile the firmware
       working-directory: ./openwrt
       run: |
-        echo -e "$(nproc) thread compile"
         make -j$(nproc) V=s
 
 
