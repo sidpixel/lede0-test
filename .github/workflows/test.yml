@@ -32,41 +32,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-
- 
-    - name: Initialization environment and space clean
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-
-        sudo -E timedatectl set-timezone "Asia/Shanghai"
-
-
-
+      - name: Checkout
+        uses: actions/checkout@master
   
-
-    - name: Clone source code
-      run: |
-        df -hT $PWD
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-
-    - name: Load custom feeds and Load custom configuration
-      run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE  openwrt/.config
-        ls -Ahl openwrt/
-        chmod +x $READY_SH
-        bash -x $GITHUB_WORKSPACE/$READY_SH
-
-    - name: Update feeds
-      working-directory: ./openwrt
-      run: |
-        ls -Ahl
-        ./scripts/feeds clean 
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
+      - name: Initialization environment and space clean
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+   
+          sudo -E timedatectl set-timezone "Asia/Shanghai"
+  
+      - name: Clone source code
+        run: |
+  
+          df -hT $PWD
+          git clone  -b $REPO_BRANCH $REPO_URL openwrt
+  
+      - name: Load custom feeds and Load custom configuration
+        run: |
+          [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+          [ -e $CONFIG_FILE ] && mv $CONFIG_FILE  openwrt/.config
+          ls -Ahl openwrt/
+          chmod +x $READY_SH
+          bash -x $GITHUB_WORKSPACE/$READY_SH
+          cat openwrt/feeds.conf.default
+  
 
 
     
