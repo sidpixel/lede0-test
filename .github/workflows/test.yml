@@ -45,7 +45,7 @@ jobs:
     - name: Clone source code
       run: |
         df -hT $PWD
-        mkdir openwrt
+        mkdir -p openwrt/bin/targets/x86/generic/test
         #git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
     - name: Load custom feeds and Load custom configuration
@@ -68,10 +68,9 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        touch testcombined-efi.img test.manifest
-        mv openwrt/bin/targets/*/*/*combined-efi.img* ./artifact/
-        mv openwrt/bin/targets/*/*/*.manifest ./artifact/
         cd ./artifact/
+        touch testcombined-efi.img test.manifest
+
         ls -Ahl
         gzip -d *.gz && exit 0
         gzip --best *
@@ -87,6 +86,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
-        files: |
-          ./artifact/openwrt-x86-generic-generic-squashfs-combined-efi.img.gz
-          ./artifact/openwrt-x86-generic-generic.manifest.gz
+        files: ./artifact/*.gz
