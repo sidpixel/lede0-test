@@ -63,7 +63,6 @@ jobs:
       working-directory: ./openwrt
       run: |
         mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
-        mv $GITHUB_WORKSPACE/$CONFIG_FILE  .config
         bash -x $GITHUB_WORKSPACE/$READY_SH
         cat feeds.conf.default    
 
@@ -78,8 +77,9 @@ jobs:
     - name: create default config  package
       working-directory: ./openwrt
       run: |
+        mv $GITHUB_WORKSPACE/$CONFIG_FILE  .config
         make defconfig -j$(nproc)
-        
+
     - name: download  package
       working-directory: ./openwrt
       run: |
