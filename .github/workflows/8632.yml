@@ -79,6 +79,7 @@ jobs:
       working-directory: ./openwrt
       run: |
         make defconfig -j$(nproc)
+        
     - name: download  package
       working-directory: ./openwrt
       run: |
@@ -97,7 +98,7 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/*/*/*.img* ./artifact/
+        mv openwrt/bin/targets/*/*/*.squashfs* ./artifact/
         mv openwrt/bin/targets/*/*/*.manifest ./artifact/
         cd ./artifact/
         ls -Ahl
@@ -109,10 +110,10 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: openwrt-firmware
-        path:  ./artifact/
+        path:  artifact/
 
     - name: Create release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
-        files: /artifact/*
+        files: artifact/*
