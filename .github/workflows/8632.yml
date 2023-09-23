@@ -99,28 +99,25 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: Prepare artifact
+    - name: Organize files
       run: |
-        mkdir -p openwrt/artifact/package
-        mkdir -p openwrt/artifact/buildinfo
-        rm -rf $(find openwrt/bin/targets/ -type d -name "packages")
-        cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") openwrt/artifact/package/
-        cp -rf $(find openwrt/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") openwrt/artifact/buildinfo/
+        rm -rf ./artifact/
+        mkdir -p ./artifact/package
+        rm -rf $(find openwrt/bin/targets/*/*/ -type d -name "packages")
+        #cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") artifact/package/
+        cp -rf $(find openwrt/bin/targets/*/*/ -type f -name "*.buildinfo" -o -name "openwrt.*" ) artifact/
+        cd ./artifact/
+        gzip --best *
+        ls -Ahl
 
-    - name: Upload buildinfo
-      uses: actions/upload-artifact@v3
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
       with:
-        name: OpenWrt_buildinfo
-        path: openwrt/artifact/buildinfo/
+        name: openwrt-firmware
+        path:  artifact/
 
-    - name: Upload package
-      uses: actions/upload-artifact@v3
-      with:
-        name: OpenWrt_package
-        path: openwrt/artifact/package/
-
-    - name: Release
+    - name: Create release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ env.OS_ARCH }}-${{ env.FILE_DATE }}
-        files: openwrt/artifact/buildinfo/*
+        tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
+        files: artifact/*
