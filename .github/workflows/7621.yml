@@ -81,7 +81,7 @@ jobs:
         make download -j$(nproc)
 
     - name: compile package
-      run: make -j$(nproc) V=s
+      run: make  V=s
 
 
     - name: Check space usage
