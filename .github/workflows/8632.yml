@@ -65,8 +65,9 @@ jobs:
     - name: Load custom feeds and Load custom configuration
       working-directory: ./openwrt
       run: |
-        mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
-        bash -x $GITHUB_WORKSPACE/$READY_SH
+        #mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
+        #bash -x $GITHUB_WORKSPACE/$READY_SH
+        ls
         cat feeds.conf.default    
 
     - name: load the  feeds
