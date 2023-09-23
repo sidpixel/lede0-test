@@ -18,11 +18,11 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 echo "src-git openclash https://github.com/vernesong/OpenClash.git;master" >> "feeds.conf.default"
-echo "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> "feeds.conf.default"
-echo "src-git other https://github.com/Lienol/openwrt-package.git;other" >> "feeds.conf.default"
-echo "src-git kenzo https://github.com/kenzok8/openwrt-packages.git" >> "feeds.conf.default"
-echo "src-git small https://github.com/kenzok8/small.git" >> "feeds.conf.default"
-echo "src-git lienolluci https://github.com/Lienol/openwrt-luci.git;22.03" >> "feeds.conf.default"
+#echo "src-git lienol https://github.com/Lienol/openwrt-package.git;main" >> "feeds.conf.default"
+#echo "src-git other https://github.com/Lienol/openwrt-package.git;other" >> "feeds.conf.default"
+#echo "src-git kenzo https://github.com/kenzok8/openwrt-packages.git" >> "feeds.conf.default"
+#echo "src-git small https://github.com/kenzok8/small.git" >> "feeds.conf.default"
+#echo "src-git lienolluci https://github.com/Lienol/openwrt-luci.git;22.03" >> "feeds.conf.default"
 
 #定义时间变量
 echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
