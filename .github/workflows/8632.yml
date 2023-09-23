@@ -87,9 +87,12 @@ jobs:
     - name: download  package
       working-directory: ./openwrt
       run: make download -j$(nproc)
+
     - name: Compile the firmware
       working-directory: ./openwrt
-      run: make -j$(nproc) V=s
+      run: |
+        ls -alh
+        make -j$(nproc) V=s
 
 
     - name: Check space usage
