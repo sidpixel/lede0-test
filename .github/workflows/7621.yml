@@ -82,7 +82,7 @@ jobs:
 
     - name: compile package
       working-directory: ./openwrt
-      run: make  V=s
+      run: make -j$(nproc)  V=s
 
 
     - name: Check space usage
