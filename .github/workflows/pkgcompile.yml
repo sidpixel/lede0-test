@@ -1,0 +1,107 @@
+#=================================================
+# https://github.com/sidpixel/lede
+# Description: Build OpenWrt using GitHub Actions
+# License: MIT
+# Author: sidpixel
+#=================================================
+
+name: pkgcompile.yml
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: 
+      - main
+    paths:
+      - '.github/workflows/pkgcompile.yml'
+
+  schedule:
+    - cron: 21 1 1 */1 *
+env:
+  #REPO_URL: https://github.com/coolsnowwolf/lede
+  #REPO_URL: https://github.com/Lienol/openwrt
+  #REPO_BRANCH: main
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-22.03
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: 8632.config
+  OS_ARCH: X86_32
+  READY_SH: ready.sh
+  RELEASE_VERSION: pkg.22.03
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment and space clean
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt clean
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+    - name: Clone source code
+      run: |
+
+        df -hT $PWD
+        git clone  -b $REPO_BRANCH $REPO_URL openwrt
+
+    
+
+    - name: load the  feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds clean 
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+
+    - name: create default config  package
+      working-directory: ./openwrt
+      run: |
+        make defconfig -j$(nproc)
+        make V=s
+
+    - name: download  package
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >>.config  
+
+    - name: Compile the firmware
+      working-directory: ./openwrt
+      run: |
+        make defconfig  
+        ls -alh
+        make -j$(nproc) V=s
+
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+
+    - name: Organize files
+      run: |
+        rm -rf ./artifact/
+        mkdir -p ./artifact/package
+        #cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") artifact/
+        cd ./artifact/
+        gzip --best *
+        ls -Ahl
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      with:
+        name: openwrt-firmware
+        path:  artifact/
+
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
+        files: artifact/*
