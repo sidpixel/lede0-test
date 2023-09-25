@@ -29,7 +29,7 @@ echo "src-git luciimmort https://github.com/immortalwrt/luci.git" >> "feeds.conf
 #定义时间变量
 echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
 # Modify default IP
-#sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 
 
 # 删除老argon
