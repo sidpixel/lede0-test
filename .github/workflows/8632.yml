@@ -25,13 +25,15 @@ env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
   #REPO_URL: https://github.com/Lienol/openwrt
   #REPO_BRANCH: main
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-19.07
+  #REPO_URL: https://github.com/openwrt/openwrt
+  #REPO_BRANCH: openwrt-19.07
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: master
+  RELEASE_VERSION: latest
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
   READY_SH: ready.sh
-  RELEASE_VERSION: 19.07
 
 jobs:
   build:
