@@ -32,29 +32,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+    - name: Checkout
+      uses: actions/checkout@master
   
-      - name: Initialization environment and space clean
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-   
-          sudo -E timedatectl set-timezone "Asia/Shanghai"
-  
-      - name: Clone source code
-        run: |
-  
-          df -hT $PWD
-          git clone  -b $REPO_BRANCH $REPO_URL openwrt
-  
-      - name: Load custom feeds and Load custom configuration
-        working-directory: ./openwrt
-        run: |
-          mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
-          mv $GITHUB_WORKSPACE/$CONFIG_FILE  .config
-          bash -x $GITHUB_WORKSPACE/$READY_SH
-          cat feeds.conf.default
+    - name: Initialization environment and space clean
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+
+    - name: Organize files
+      run: |
+        rm -rf ./artifact/
+        mkdir -p ./artifact
+        rm -rf $(find openwrt/bin/targets/*/*/ -type d -name "packages")
+        #cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") artifact/package/
+        cp -rf $(find openwrt/bin/targets/*/*/ -type f -name "*.buildinfo" -o -name "openwrt.*" ) artifact/
+        cd ./artifact/
+        gzip --best *
+        ls -Ahl
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      with:
+        name: openwrt-firmware
+        path:  artifact/
+
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: OpenWRT-${{ env.OS_ARCH }}-${{ env.FILE_DATE }}-${{ env.RELEASE_VERSION }}
+        files: artifact/*
+
+
+
+      
   
 
 
