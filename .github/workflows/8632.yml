@@ -26,12 +26,12 @@ env:
   #REPO_URL: https://github.com/Lienol/openwrt
   #REPO_BRANCH: main
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
+  REPO_BRANCH: openwrt-19.07
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
   READY_SH: ready.sh
-  RELEASE_VERSION: 22.03
+  RELEASE_VERSION: 19.07
 
 jobs:
   build:
