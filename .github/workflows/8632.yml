@@ -25,11 +25,11 @@ env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
   #REPO_URL: https://github.com/Lienol/openwrt
   #REPO_BRANCH: main
-  #REPO_URL: https://github.com/openwrt/openwrt
-  #REPO_BRANCH: openwrt-19.07
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: master
-  RELEASE_VERSION: latest
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-19.07
+  #REPO_URL: https://github.com/immortalwrt/immortalwrt
+  #REPO_BRANCH: master
+  RELEASE_VERSION: 19.07
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
@@ -83,7 +83,7 @@ jobs:
     - name: create default config  package
       working-directory: ./openwrt
       run: |
-        mv $GITHUB_WORKSPACE/$CONFIG_FILE  .config
+        mv -f  $GITHUB_WORKSPACE/$CONFIG_FILE  .config
         make defconfig -j$(nproc)
 
     - name: download  package
