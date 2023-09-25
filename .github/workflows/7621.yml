@@ -23,9 +23,9 @@ env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
   #REPO_URL: https://github.com/Lienol/openwrt
   #REPO_BRANCH: master
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  #REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: master
+  #REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-22.03
   RELEASE_VERSION: latest
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 7621.config
@@ -97,7 +97,8 @@ jobs:
         mkdir -p ./artifact
         rm -rf $(find openwrt/bin/targets/*/*/ -type d -name "packages")
         #cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") artifact/package/
-        cp -rf $(find openwrt/bin/targets/*/*/ -type f -name "*.buildinfo" -o -name "openwrt*" ) artifact/
+        ls -alh openwrt/bin/targets/*/*/
+        cp -rf $(find openwrt/bin/targets/*/*/ -type -name "openwrt*" -o -name "*.buildinfo" ) artifact/
         cd ./artifact/
         gzip --best *
         ls -Ahl
