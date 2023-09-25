@@ -42,6 +42,14 @@ jobs:
         sudo -E timedatectl set-timezone "Asia/Shanghai"
 
 
+    - name: create some test file
+      run: |
+        mkdir -pv openwrt/bin/targets/x86/generic
+        cd   openwrt/bin/targets/x86/generic
+        touch openwrt-22.03.5-ramips-mt7621-d-team_newifi-d2-squashfs-sysupgrade.bin  \
+        openwrt-23.05.0-rc2-x86-generic-generic-squashfs-combined-efi.img \
+        openwrt-ramips-mt7621-d-team_newifi-d2.manifest \
+        firmware.buildinfo
     - name: Organize files
       run: |
         rm -rf ./artifact/
