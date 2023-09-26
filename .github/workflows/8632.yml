@@ -62,7 +62,7 @@ jobs:
         python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig \
         texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev libcurl4-openssl-dev build-essential \
         clang flex bison gcc  g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev \
-        python3-distutils rsync unzip zlib1g-dev file wget
+        python3-distutils rsync unzip zlib1g-dev file wget 
         sudo apt full-upgrade -y
         sudo -E systemctl daemon-reload
         sudo -E apt-get -y autoremove --purge
