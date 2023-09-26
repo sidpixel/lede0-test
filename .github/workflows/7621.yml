@@ -98,7 +98,7 @@ jobs:
         rm -rf $(find openwrt/bin/targets/*/*/ -type d -name "packages")
         #cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") artifact/package/
         ls -alh openwrt/bin/targets/*/*/
-        cp -rf $(find openwrt/bin/targets/*/*/ -type -name "openwrt*" -o -name "*.buildinfo" ) artifact/
+        cp -rf $(find openwrt/bin/targets/*/*/  -name "openwrt*" -o -name "*.buildinfo" ) artifact/
         cd ./artifact/
         gzip --best *
         ls -Ahl
