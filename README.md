@@ -161,4 +161,9 @@ kmod-libertas-spi
 kmod-libertas-usb   
 kmod-rsi91x-sdio   
 kmod-rsi91x-usb   
+
+
+待集成包：  
+youtube-dl
+namecheap-client
                 
