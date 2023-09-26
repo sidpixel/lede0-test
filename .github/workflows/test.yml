@@ -40,7 +40,6 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E timedatectl set-timezone "Asia/Shanghai"
-        echo "FILE_DATE=$(date +%Y%m%d%H%M)" >>"$GITHUB_ENV"
         sudo apt list|grep "python-docutils"
 
 
