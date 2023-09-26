@@ -42,6 +42,10 @@ jobs:
         sudo -E timedatectl set-timezone "Asia/Shanghai"
         sudo apt list|grep "python-docutils"
         sudo apt install -y  "python-docutils"
+        cat /etc/apt/sources.list
+        ls /etc/apt/sources.list.d
+
+
 
 
 
