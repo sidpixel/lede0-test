@@ -40,6 +40,8 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E timedatectl set-timezone "Asia/Shanghai"
+        sudo apt list|grep "python3-docutils"
+        sudo apt install -y  "python3-docutils"
         cat /etc/apt/sources.list
         ls /etc/apt/sources.list.d
 
