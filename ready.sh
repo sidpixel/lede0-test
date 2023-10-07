@@ -23,7 +23,7 @@ echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >
 #echo "src-git other https://github.com/Lienol/openwrt-package.git;other" >> "feeds.conf.default"
 echo "src-git kenzo https://github.com/kenzok8/openwrt-packages.git" >> "feeds.conf.default"
 echo "src-git small https://github.com/kenzok8/small.git" >> "feeds.conf.default"
-echo "src-git lienolluci https://github.com/Lienol/openwrt-luci.git;19.07" >> "feeds.conf.default"
+echo "src-git lienolluci https://github.com/Lienol/openwrt-luci.git" >> "feeds.conf.default"
 #echo "src-git packagesimmort https://github.com/immortalwrt/packages.git;openwrt-23.05" >> "feeds.conf.default"
 #echo "src-git luciimmort https://github.com/immortalwrt/luci.git;openwrt-23.05" >> "feeds.conf.default"
 
