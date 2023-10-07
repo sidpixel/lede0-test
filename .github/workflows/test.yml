@@ -12,7 +12,7 @@ on:
     types: [published]
   push:
     branches: 
-      - main
+      - 1907
     paths:
       - '.github/workflows/test.yml'
 
