@@ -1,59 +1,30 @@
-#=================================================
-# https://github.com/sidpixel/lede
-# Description: Build OpenWrt using GitHub Actions
-# License: MIT
-# Author: sidpixel
-#=================================================
-
-name: test.yml
+name: Clean Up Workflow Runs
 
 on:
-  release:
-    types: [published]
-  push:
-    branches: 
-      - main
-    paths:
-      - '.github/workflows/test.yml'
-
-  schedule:
-    - cron: 21 21 1 */1 *
-env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: 8632.config
-  OS_ARCH: X86_32
-  READY_SH: ready.sh
-  RELEASE_VERSION: 22.03
+  workflow_dispatch:  # 可以手动触发此工作流程
 
 jobs:
-  build:
+  cleanup:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-
-
-    - name: Check and Clean Up
+      - name: Clean Up
         run: |
           # Define the number of days to retain workflow runs
           RETENTION_DAYS=3
-          
+
           # Calculate the cutoff date for workflow runs to be retained
           CUTOFF_DATE=$(date -I -d "$RETENTION_DAYS days ago")
-          
-          # List all completed workflow runs of "Your Workflow Name"
-          RUNS=$(gh api "repos/yourusername/yourrepository/actions/runs?event=workflow_run")
-          
+
+          # List all completed workflow runs
+          RUNS=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?event=workflow_run")
+
           # Iterate through the runs and delete old runs
-          for run in $(echo "$RUNS" | jq -r '.workflow_runs[] | select(.name == "Your Workflow Name" and .created_at < "'"$CUTOFF_DATE"'" and .status == "completed") | .id'); do
+          for run in $(echo "$RUNS" | jq -r '.workflow_runs[] | select(.created_at < "'"$CUTOFF_DATE"'" and .status == "completed") | .id'); do
             echo "Deleting workflow run $run"
-            gh api -X DELETE "repos/yourusername/yourrepository/actions/runs/$run"
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/runs/$run"
           done
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    
