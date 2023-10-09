@@ -12,11 +12,10 @@ on:
     types: [published]
   push:
     branches: 
-      - main
+      - Lienol2203
     paths:
       - '8632.config'
       - 'ready.sh'
-      - 'feeds.conf.default'
       - '.github/workflows/8632.yml'
 
   schedule:
