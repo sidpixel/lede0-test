@@ -22,15 +22,9 @@ on:
   schedule:
     - cron: 31 1 1 */1 *
 env:
-  #REPO_URL: https://github.com/coolsnowwolf/lede
-  #REPO_URL: https://github.com/Lienol/openwrt
-  #REPO_BRANCH: main
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-19.07
-  #REPO_URL: https://github.com/immortalwrt/immortalwrt
-  #REPO_BRANCH: master
   RELEASE_VERSION: 19.07
-  FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
   READY_SH: ready.sh
@@ -68,7 +62,6 @@ jobs:
     - name: Load custom feeds and Load custom configuration
       working-directory: ./openwrt
       run: |
-        #mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
         bash -x $GITHUB_WORKSPACE/$READY_SH
         ls
         cat feeds.conf.default    
