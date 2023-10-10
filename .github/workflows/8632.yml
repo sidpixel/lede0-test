@@ -46,7 +46,8 @@ jobs:
         sudo -E apt-mark hold grub-efi-amd64-signed
         sudo -E apt-get update
         sudo -E apt-get  purge -y azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-        sudo -E apt-get install -y libcurl4-openssl-dev build-essential clang flex bison gcc  g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
+        sudo -E apt-get install -y libcurl4-openssl-dev build-essential clang flex bison gcc  g++ gawk gcc-multilib g++-multilib gettext \
+        git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget    libelf-dev
         sudo -E apt-get  -y upgrade
         sudo -E systemctl daemon-reload
         sudo -E apt-get -y autoremove --purge
