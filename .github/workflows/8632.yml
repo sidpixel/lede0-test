@@ -33,27 +33,15 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v4
 
     - name: Initialization environment and space clean
-      env:
-        DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E rm -rf /imagegeneration /opt  /usr/local/aws* /usr/local/julia* /usr/share/swift* /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android  /usr/share/sbt* /usr/local/share/chromium* /usr/local/share/powershell* 
-        sudo -E docker rmi `docker images -q`
-        sudo -E apt-mark hold grub-efi-amd64-signed
-        sudo -E apt-get update
-        sudo -E apt-get  purge -y azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-        sudo -E apt-get install -y libcurl4-openssl-dev build-essential clang flex bison gcc  g++ gawk gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
-        sudo -E apt-get  -y upgrade
-        sudo -E systemctl daemon-reload
-        sudo -E apt-get -y autoremove --purge
-        sudo -E apt-get clean
-        sudo -E timedatectl set-timezone "Asia/Shanghai"
+        brew install git make gcc
 
     - name: Clone source code
       run: |

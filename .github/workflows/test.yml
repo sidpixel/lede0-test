@@ -18,7 +18,7 @@ jobs:
         run: |
           sysctl -n machdep.cpu.brand_string
           sysctl -n hw.ncpu
-          df -h
+          df -hT
           brew install git make gcc
   check_ubuntuos:
     runs-on: ubuntu-latest
@@ -27,4 +27,4 @@ jobs:
         run: |
           lscpu
           nproc
-          df -h
+          df -hT
