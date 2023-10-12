@@ -46,7 +46,7 @@ jobs:
     - name: Clone source code
       run: |
 
-        df -hT $PWD
+        df -h $PWD
         git clone  -b $REPO_BRANCH $REPO_URL openwrt
 
     - name: Load custom feeds and Load custom configuration
@@ -84,7 +84,7 @@ jobs:
 
     - name: Check space usage
       if: (!cancelled())
-      run: df -hT
+      run: df -h
 
     - name: Organize files
       run: |
