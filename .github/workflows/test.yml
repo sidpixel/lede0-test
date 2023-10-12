@@ -19,7 +19,10 @@ jobs:
           sysctl -n machdep.cpu.brand_string
           sysctl -n hw.ncpu
           df -h
-          brew install git make gcc gnu-sed
+          gsed  -n '1,2p' /etc/hosts
+
+
+
   check_ubuntuos:
     runs-on: ubuntu-latest
     steps:
