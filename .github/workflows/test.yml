@@ -1,7 +1,11 @@
-name: Clean Up Workflow Runs
+name: test
 
 on:
-  workflow_dispatch:  # 可以手动触发此工作流程
+  push:
+    branches: 
+      - main
+    paths:
+      - '.github/workflows/test.yml'
 
 jobs:
   cleanup:
