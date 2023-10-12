@@ -8,7 +8,7 @@ on:
       - '.github/workflows/test.yml'
 
 jobs:
-  cleanup:
+  build:
     runs-on: macos-latest
     steps:
       - name: Checkout code
@@ -16,5 +16,5 @@ jobs:
 
       - name: sys info
         run: |
-          nproc
-          lscpu
+          sysctl -n machdep.cpu.brand_string
+          sysctl -n hw.ncpu
