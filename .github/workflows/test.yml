@@ -16,18 +16,5 @@ jobs:
 
       - name: sys info
         run: |
-          sysctl -n machdep.cpu.brand_string
-          sysctl -n hw.ncpu
+          brew install  coreutils findutils gnu-sed gawk gnu-tar grep gpatch  git make gcc  xargs fileutils awk getopt  realpath install
           df -h
-          sed  --help
-
-
-
-  check_ubuntuos:
-    runs-on: ubuntu-latest
-    steps:
-      - name: sys info
-        run: |
-          lscpu
-          nproc
-          df -hT
