@@ -19,7 +19,7 @@ jobs:
           sysctl -n machdep.cpu.brand_string
           sysctl -n hw.ncpu
           df -h
-          gsed  -n '1,2p' /etc/hosts
+          sed  -n '1,2p' /etc/hosts
 
 
 
