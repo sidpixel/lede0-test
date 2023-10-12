@@ -5,32 +5,12 @@ on:
 
 jobs:
   cleanup:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Clean Up
+      - name: sys info
         run: |
-          # Define the number of days to retain workflow runs
-          RETENTION_DAYS=3
-
-          # Calculate the cutoff date for workflow runs to be retained
-          CUTOFF_DATE=$(date -I -d "$RETENTION_DAYS days ago")
-
-          # List all completed workflow runs
-          RUNS=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs?event=workflow_run")
-
-          # Iterate through the runs and delete old runs
-          for run in $(echo "$RUNS" | jq -r '.workflow_runs[] | select(.created_at < "'"$CUTOFF_DATE"'" and .status == "completed") | .id'); do
-            echo "Deleting workflow run $run"
-            
-            # Print information about the deleted run
-            RUN_INFO=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run")
-            echo "Deleted run details: $RUN_INFO"
-            
-            # Delete the run
-            gh api -X DELETE "repos/$GITHUB_REPOSITORY/actions/runs/$run"
-          done
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          nproc
+          lscpu
