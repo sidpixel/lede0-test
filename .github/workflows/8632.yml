@@ -54,6 +54,7 @@ jobs:
       run: |
         #mv $GITHUB_WORKSPACE/$FEEDS_CONF feeds.conf.default
         bash -x $GITHUB_WORKSPACE/$READY_SH
+        gsed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
         ls
         cat feeds.conf.default    
 
