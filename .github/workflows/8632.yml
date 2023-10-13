@@ -41,7 +41,7 @@ jobs:
 
     - name: Initialization environment and space clean
       run: |
-        brew install  coreutils findutils gnu-sed gawk gnu-tar grep gpatch  git make gcc  xargs fileutils awk getopt  realpath install
+        brew install  coreutils findutils gnu-sed gawk gnu-tar grep gpatch  git make gcc   fileutils awk getopt  realpath install
 
     - name: Clone source code
       run: |
