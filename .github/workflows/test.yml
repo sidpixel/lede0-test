@@ -28,6 +28,8 @@ jobs:
           hdiutil attach OpenWrt.sparseimage
           ls -alh /Volumes/
           pwd
+          cd /Volumes/OpenWrt
+          git clone https://github.com/openwrt/openwrt
 
 
 
