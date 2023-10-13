@@ -16,5 +16,5 @@ jobs:
 
       - name: sys info
         run: |
-          brew install  coreutils findutils gnu-sed gawk gnu-tar grep gpatch  git make gcc  xargs fileutils awk getopt  realpath install
+          brew install coreutils diffutils findutils gawk gnu-getopt gnu-tar grep wget quilt xz
           df -h
