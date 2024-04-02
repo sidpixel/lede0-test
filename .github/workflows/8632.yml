@@ -23,9 +23,9 @@ on:
     - cron: 32 1 1 */1 *
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
-  #REPO_BRANCH: master
-  RELEASE_VERSION: 22.03
+  #REPO_BRANCH: openwrt-22.03
+  REPO_BRANCH: master
+  RELEASE_VERSION: latest
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 8632.config
   OS_ARCH: X86_32
